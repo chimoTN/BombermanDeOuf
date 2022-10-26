@@ -3,10 +3,9 @@
 #include <string.h>
 #include <time.h>
 #include <conio.h>
-#include <unistd.h>
-#include <windows.h>
 
-// Fonction qui initialise la carte avec la largeur et la longueur et pouvoir choisir le nombre de joueur 
+
+// Fonction qui initialise la carte avec la largeur et la longueur et permet de choisir le nombre de joueur 
 void initialiser_carte(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur])
 {
 
@@ -24,8 +23,7 @@ void initialiser_carte(int longeur, int largeur, int nb_joueur, char carte[longe
                 carte[i][j] = 219;
             }
             else if (i == 1 && j == 1 && nb_joueur >= 1)
-            {
-                //1 en unicode
+            {         
                 carte[i][j] = 49;
             }
             else if (i == 1 && j == largeur - 2 && nb_joueur >= 2)
@@ -48,10 +46,24 @@ void initialiser_carte(int longeur, int largeur, int nb_joueur, char carte[longe
     }
 }
 
-// Fonction qui place les murs indestructibles sur tous les cotés de la carte 
+// Fonction qui affiche la carte avec int longeur int largeur et actualisé les déplacements des joueurs et les bombes
+void afficher_carte(int longeur, int largeur, char carte[longeur][largeur])
+{
+    for (int i = 0; i < longeur; i++)
+    {
+        for (int j = 0; j < largeur; j++)
+        {
+            printf("%c", carte[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+// Fonction qui place les murs indestructibles sur tous les cotés de la carte
 
 void placer_murs(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur])
 {
+
 
     for (int i = 0; i < longeur; i++)
     {
@@ -89,14 +101,12 @@ void placer_murs(int longeur, int largeur, int nb_joueur, char carte[longeur][la
     }
 }
 
-
-
 // Fonction qui place les mur destructibles partout où il n'y a pas de murs indestructibles au hasard
 
 void placer_murs_destructibles(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur])
 {
     int nb_murs = 0;
-    int nb_murs_max = (longeur * largeur) / 6;
+    int nb_murs_max = (longeur * largeur) / 12;
     int x, y;
     srand(time(NULL));
     while (nb_murs < nb_murs_max)
@@ -112,16 +122,29 @@ void placer_murs_destructibles(int longeur, int largeur, int nb_joueur, char car
 }
 
 
-//code ascii pour les touches du clavier fleche haut , fleche bas, fleche gauche, fleche droite
-#define HAUT 72
-#define BAS 80
-#define GAUCHE 75
-#define DROITE 77
-#define SPACE 32
+//Fonction pour une placer une bombe sur la carte 
+void placer_bombe(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur], int x, int y)
+{
+    carte[x][y] = 111;
+        carte[x + 1][y] = ' ';
+        carte[x - 1][y] = ' ';
+        carte[x][y + 1] = ' ';
+        carte[x][y - 1] = ' ';
+}
+
+//code ascii pour les touches du clavier fleche haut , fleche bas, fleche gauche, fleche droite, espace
+
+typedef enum
+{
+    HAUT = 72,
+    BAS = 80,
+    GAUCHE = 75,
+    DROITE = 77,
+    SPACE = 32
+} touche;
 
 
 //Fonction qui pemet de déplacer mon joueur 1 sur la carte en fonction des touches du clavier
-//recuperer la position des mur et mur destructible pour ne pas pouvoir les traverser
 void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur], int x, int y)
 {
     int touche = 0;
@@ -160,71 +183,18 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
                 carte[x][y] = 49;
             }
         break;
-    }
+    case SPACE:
+        placer_bombe(longeur, largeur, nb_joueur, carte, x, y);
+        break;
+    } 
      system("cls");
 }
 
 
-
-
-// Fonction qui affiche la carte avec int longeur int largeur et actualisé les déplacements des joueurs et les bombes
-void afficher_carte(int longeur, int largeur, char carte[longeur][largeur])
-{
-    for (int i = 0; i < longeur; i++)
-    {
-        for (int j = 0; j < largeur; j++)
-        {
-            printf("%c", carte[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-
-
-
-// Fonction qui place les bonus
-
-// void placer_bonus(int longeur, int largeur, char carte[longeur][largeur])
-// {
-//     int nb_bonus = 0;
-//     int nb_bonus_max = (longeur * largeur) / 10;
-//     while (nb_bonus < nb_bonus_max)
-//     {
-//         int x = rand() % (longeur - 2) + 1;
-//         int y = rand() % (largeur - 2) + 1;
-//         if (carte[x][y] == ' ')
-//         {
-//             carte[x][y] = 'B';
-//             nb_bonus++;
-//         }
-//     }
-// }
-
-
-// // Fonction qui place les joueurs
-
-// void placer_joueurs(int longeur, int largeur, char carte[longeur][largeur])
-// {
-//     int nb_joueurs = 0;
-//     int nb_joueurs_max = 4;
-//     while (nb_joueurs < nb_joueurs_max)
-//     {
-//         int x = rand() % (longeur - 2) + 1;
-//         int y = rand() % (largeur - 2) + 1;
-//         if (carte[x][y] == ' ')
-//         {
-//             carte[x][y] = 'p';
-//             nb_joueurs++;
-//         }
-//     }
-// }
-
-
-//fonction main qui demander la longueur et la largeur de la carte puis l'intialiser et l'afficher
+//Fonction main qui demande la longueur et la largeur de la carte, l'intialise, l'affiche
 int main()
 {
-    //recommencer le programme un fois fini
+    //recommencer le programme une fois fini
     int recommencer = 1;
     while (recommencer == 1)
     {
@@ -235,13 +205,13 @@ int main()
         //obliger le joueur a mettre une longeur impaire et d'au moins 7
         while (longeur % 2 == 0 || longeur < 7)
         {
-            printf("Entrez la longeur de la carte (impair et au moins 7) : ");
+            printf("Entrez une longeur de carte impaire : ");
             scanf("%d", &longeur);
         }
         //obliger le joueur a mettre une largeur impaire et d'au moins 7
         while (largeur % 2 == 0 || largeur < 7)
         {
-            printf("Entrez la largeur de la carte (impair et au moins 7) : ");
+            printf("Entrez une largeur de carte impaire : ");
             scanf("%d", &largeur);
         }
         printf("Entrez le nombre de joueur : ");
@@ -251,7 +221,6 @@ int main()
         initialiser_carte(longeur, largeur, nb_joueur, carte);
         placer_murs(longeur, largeur, nb_joueur, carte);
         placer_murs_destructibles(longeur, largeur, nb_joueur, carte);
-        // placer_bonus(longeur, largeur, carte);
         int x = 1;
         int y = 1;
         // boucle pour actualiser les déplacements des joueurs
@@ -259,7 +228,6 @@ int main()
         {
             afficher_carte(longeur, largeur, carte);
             deplacement_joueur1(longeur, largeur, nb_joueur, carte, x, y);
-            //actualiser les déplacements des joueurs x et y quand le joueur appuie sur les fleches
             if (carte[x - 1][y] == 49)
             {
                 x -= 1;
@@ -283,3 +251,7 @@ int main()
     }
     return 0;
 } 
+
+
+
+
