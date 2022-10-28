@@ -3,6 +3,8 @@
 #include <string.h>
 #include <time.h>
 #include <conio.h>
+#include <unistd.h>
+
 
 
 // Fonction qui initialise la carte avec la largeur et la longueur et permet de choisir le nombre de joueur 
@@ -16,11 +18,11 @@ void initialiser_carte(int longeur, int largeur, int nb_joueur, char carte[longe
 
             if (i == 0 || i == longeur - 1)
             {
-                carte[i][j] = 219;
+                carte[i][j] = '#';
             }
             else if (j == 0 || j == largeur - 1)
             {
-                carte[i][j] = 219;
+                carte[i][j] = '#';
             }
             else if (i == 1 && j == 1 && nb_joueur >= 1)
             {         
@@ -71,11 +73,11 @@ void placer_murs(int longeur, int largeur, int nb_joueur, char carte[longeur][la
         {
             if (i == 0 || i == longeur - 1)
             {
-                carte[i][j] = 219;
+                carte[i][j] = '#';
             }
             else if (j == 0 || j == largeur - 1)
             {
-                carte[i][j] = 219;
+                carte[i][j] = '#';
             }
             else if (i == 1 && j == 1 && nb_joueur >= 1)
             {
@@ -95,7 +97,7 @@ void placer_murs(int longeur, int largeur, int nb_joueur, char carte[longeur][la
             }
             else if (i % 2 == 0 && j % 2 == 0)
             {
-                carte[i][j] = 219;
+                carte[i][j] = '#';
             }
         }
     }
@@ -106,7 +108,7 @@ void placer_murs(int longeur, int largeur, int nb_joueur, char carte[longeur][la
 void placer_murs_destructibles(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur])
 {
     int nb_murs = 0;
-    int nb_murs_max = (longeur * largeur) / 12;
+    int nb_murs_max = (longeur * largeur) / 10;
     int x, y;
     srand(time(NULL));
     while (nb_murs < nb_murs_max)
@@ -115,7 +117,7 @@ void placer_murs_destructibles(int longeur, int largeur, int nb_joueur, char car
         y = rand() % (largeur - 2) + 1;
         if (carte[x][y] == ' ')
         {
-            carte[x][y] = 178;
+            carte[x][y] = '+';
             nb_murs++;
         }
     }
@@ -126,10 +128,31 @@ void placer_murs_destructibles(int longeur, int largeur, int nb_joueur, char car
 void placer_bombe(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur], int x, int y)
 {
     carte[x][y] = 111;
-        carte[x + 1][y] = ' ';
-        carte[x - 1][y] = ' ';
-        carte[x][y + 1] = ' ';
-        carte[x][y - 1] = ' ';
+
+                if (carte[x + 1][y] != '#'){
+                    carte[x + 1][y] = ' ';
+                }
+                if (carte[x - 1][y] != '#'){
+                    carte[x - 1][y] = ' ';
+                }
+                if (carte[x][y + 1] != '#'){
+                    carte[x][y + 1] = ' ';
+                }
+                if (carte[x][y - 1] != '#'){
+                    carte[x][y - 1] = ' ';
+                }
+                if (carte[x+2][y] != '#'){
+                    carte[x+2][y] = ' ';
+                }
+                if (carte[x-2][y] != '#'){
+                    carte[x-2][y] = ' ';
+                }
+                if (carte[x][y+2] != '#'){
+                    carte[x][y+2] = ' ';
+                }
+                if (carte[x][y-2] != '#'){
+                    carte[x][y-2] = ' ';
+                }
 }
 
 //code ascii pour les touches du clavier fleche haut , fleche bas, fleche gauche, fleche droite, espace
@@ -184,7 +207,8 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
             }
         break;
     case SPACE:
-        placer_bombe(longeur, largeur, nb_joueur, carte, x, y);
+       //transformer la case du dessus en un espace vide
+            placer_bombe(longeur, largeur, nb_joueur, carte, x, y);   
         break;
     } 
      system("cls");
@@ -247,11 +271,7 @@ int main()
 
         }
        printf("Voulez vous recommencer ? 1 = oui 0 = non : ");
-        scanf("%d", &recommencer);
+       scanf("%d", &recommencer);
     }
     return 0;
 } 
-
-
-
-
