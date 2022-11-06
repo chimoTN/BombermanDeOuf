@@ -108,7 +108,7 @@ void placer_murs(int longeur, int largeur, int nb_joueur, char carte[longeur][la
 void placer_murs_destructibles(int longeur, int largeur, int nb_joueur, char carte[longeur][largeur])
 {
     int nb_murs = 0;
-    int nb_murs_max = (longeur * largeur) / 10;
+    int nb_murs_max = (longeur * largeur) / 8;
     int x, y;
     srand(time(NULL));
     while (nb_murs < nb_murs_max)
@@ -129,31 +129,51 @@ void placer_bombe(int longeur, int largeur, int nb_joueur, char carte[longeur][l
 {
     carte[x][y] = 111;
 
-                if (carte[x + 1][y] != '#'){
-                    carte[x + 1][y] = ' ';
+                if (carte[x + 1][y] != '#' && carte[x+1][y] == '+'){
+                    carte[x + 1][y] = ' ';   
+                    int bonus = rand() % 100;
+                    if (bonus < 30){
+                        carte[x + 1][y] = 'b';
+                    }    
                 }
-                if (carte[x - 1][y] != '#'){
-                    carte[x - 1][y] = ' ';
+                if (carte[x - 1][y] != '#' && carte[x-1][y] == '+'){
+                    carte[x - 1][y] = ' ';      
+                    int bonus = rand() % 100;
+                    if (bonus < 30){
+                        carte[x - 1][y] = 'b';
+                    }              
                 }
-                if (carte[x][y + 1] != '#'){
+                if (carte[x][y + 1] != '#' && carte[x][y+1] == '+'){
                     carte[x][y + 1] = ' ';
+                    int bonus = rand() % 100;
+                    if (bonus < 30){
+                        carte[x][y + 1] = 'b';
+                    }              
+
                 }
-                if (carte[x][y - 1] != '#'){
+                if (carte[x][y - 1] != '#' && carte[x][y-1] == '+'){
                     carte[x][y - 1] = ' ';
+
+                    int bonus = rand() % 100;
+                    if (bonus < 30){
+                        carte[x][y - 1] = 'b';
+                    }              
                 }
-                if (carte[x+2][y] != '#'){
+                if (carte[x+2][y] != '#' && carte[x+1][y] == ' ' && carte[x+2][y] == '+'){
                     carte[x+2][y] = ' ';
                 }
-                if (carte[x-2][y] != '#'){
+                if (carte[x-2][y] != '#' && carte[x+1][y] == ' ' && carte[x-2][y] == '+'){
                     carte[x-2][y] = ' ';
+
                 }
-                if (carte[x][y+2] != '#'){
+                if (carte[x][y+2] != '#' && carte[x+1][y] == ' ' && carte[x][y+2] == '+'){
                     carte[x][y+2] = ' ';
                 }
-                if (carte[x][y-2] != '#'){
+                if (carte[x][y-2] != '#' && carte[x+1][y] != ' ' && carte[x][y-2] == '+'){
                     carte[x][y-2] = ' ';
                 }
 }
+
 
 //code ascii pour les touches du clavier fleche haut , fleche bas, fleche gauche, fleche droite, espace
 
@@ -175,7 +195,7 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
     switch (touche)
     {
     case HAUT:
-            if (carte[x - 1][y] == ' ')
+            if (carte[x - 1][y] != '#' && carte[x - 1][y] != '+')
             {
                 carte[x][y] = ' ';
                 x--;
@@ -183,7 +203,7 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
             }
         break;
     case BAS:
-            if (carte[x + 1][y] == ' ')
+            if (carte[x + 1][y] != '#'  && carte[x+1] [y] != '+')
             {
                 carte[x][y] = ' ';
                 x++;
@@ -191,7 +211,7 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
             }
         break;
     case GAUCHE:
-            if (carte[x][y - 1] == ' ')
+            if (carte[x][y - 1] != '#' && carte[x][y - 1] != '+')
             {
                 carte[x][y] = ' ';
                 y--;
@@ -199,7 +219,7 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
             }
         break;
     case DROITE:
-            if (carte[x][y + 1] == ' ')
+            if (carte[x][y + 1] != '#' && carte[x][y + 1] != '+')
             {
                 carte[x][y] = ' ';
                 y++;
@@ -208,7 +228,7 @@ void deplacement_joueur1(int longeur, int largeur, int nb_joueur, char carte[lon
         break;
     case SPACE:
        //transformer la case du dessus en un espace vide
-            placer_bombe(longeur, largeur, nb_joueur, carte, x, y);   
+        placer_bombe(longeur, largeur, nb_joueur, carte, x, y);
         break;
     } 
      system("cls");
@@ -274,4 +294,4 @@ int main()
        scanf("%d", &recommencer);
     }
     return 0;
-} 
+}
