@@ -1,0 +1,16 @@
+1
+14 14
+xxxxxxxxxxxxxxx
+xmmmmmmmmmmmmmx 
+xm   mxxxm   mx  
+xm x mmmmm x mx 
+xm  px   xp  mx 
+xmmmx     xmmmx 
+xmmx       xmmx 
+xmmx       xmmx 
+xmmmx     xmmmx 
+xm  px   xp  mx 
+xm x mmmmm x mx 
+xm   mxxxm   mx  
+xmmmmmmmmmmmmmx 
+xxxxxxxxxxxxxxx
