@@ -1,0 +1,15 @@
+1
+13 13
+xxxxxxxxxxxxx
+xp mm  mm  px
+xmx xmx xmx x
+x mm  mm  mmx
+x xmx x xmx x
+x  mm m mm  x
+x x xmx x x x
+x   mmm     x
+x xmx x xmx x
+x  m  mmm   x
+x xmx xmx x x
+xpmmm mm   px
+xxxxxxxxxxxxx

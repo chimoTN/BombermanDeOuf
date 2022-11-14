@@ -1,0 +1,12 @@
+1
+10 10
+xxxxxxxxxx
+xp mmmmmmx
+x xxmmmmmx  
+xmxmmmm  x
+xmxxxmmmmx
+xmmmxmmxmx
+x  mxmmxmx
+xmmmmmxx x
+xmmmmmm px
+xxxxxxxxxx
