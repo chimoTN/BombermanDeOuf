@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1668286920 source:c:\users\chaima\codebloc-workspace\echangedata\main.c
+	<io.h>
+	<stdio.h>
+	<winsock2.h>
+
