@@ -1,0 +1,50 @@
+# depslib dependency file v1.0
+1668615943 source:c:\users\fanny\documents\bomberman\bomberman\bomberman\files.c
+	<stdio.h>
+	<stdlib.h>
+	<dirent.h>
+	<math.h>
+	<time.h>
+	"files.h"
+
+1667338752 c:\users\fanny\documents\bomberman\bomberman\bomberman\files.h
+
+1668783995 source:c:\users\fanny\documents\bomberman\bomberman\bomberman\loadmap.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<malloc.h>
+	"loadMap.h"
+
+1668783788 c:\users\fanny\documents\bomberman\bomberman\bomberman\loadmap.h
+
+1667340911 source:c:\users\fanny\documents\bomberman\bomberman\bomberman\main.c
+	<stdio.h>
+	<stdlib.h>
+	<dirent.h>
+	<math.h>
+	<time.h>
+	"files.h"
+	"loadMap.h"
+	"game.h"
+
+1668608417 c:\users\fanny\documents\bomberman\bomberman\bomberman\game.h
+
+1667340824 source:c:\users\fanny\documents\bomberman\bomberman\bomberman\server.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	"server.h"
+
+1667340825 c:\users\fanny\documents\bomberman\bomberman\bomberman\server.h
+
+1668952110 source:c:\users\fanny\documents\bomberman\bomberman\bomberman\game.c
+	<stdio.h>
+	<stdlib.h>
+	<math.h>
+	<time.h>
+	<malloc.h>
+	"game.h"
+
